@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 // import { environment } from '@src/environments/environment';
 
 @Component({
@@ -6,6 +7,14 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'archi';
+export class AppComponent implements OnInit {
+  title = 'archit';
+
+  constructor(private afs: AngularFirestore){}
+
+  ngOnInit(){
+    this.afs.collection('test').snapshotChanges().subscribe(items=>{
+      console.log(items.map(x=>x.payload.doc.data()));
+    })
+  }
 }
