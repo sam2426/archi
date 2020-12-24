@@ -1,5 +1,5 @@
 # Archi
-
+This project was created to practice angular architecture, guided by angular course
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
 
 ## Development server
