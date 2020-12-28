@@ -22,7 +22,7 @@ export class PasswordComponent implements OnInit, ControlValueAccessor {
 
   value: string;
   isDisabled: boolean;
-  passwordType:passwordType
+  passwordType:passwordType;
   private propagateChange: any=()=>{};
   private propageteTouched: any=()=>{};
 
@@ -57,6 +57,10 @@ export class PasswordComponent implements OnInit, ControlValueAccessor {
 
   onBlur(): void {
     this.propageteTouched();
+  }
+
+  togglePassword(): void{
+    this.passwordType=this.passwordType==='password'? 'text':'password';
   }
 
 }
