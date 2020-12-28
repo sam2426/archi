@@ -31,7 +31,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
   }
 
   private propagateChange: any=()=>{};
-  private propageteTouched: any=()=>{};
+  private propagateTouched: any=()=>{};
 
   writeValue(value: Value): void {
     this.value = value;
@@ -42,7 +42,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnTouched(fn: any): void {
-    this.propageteTouched = fn;
+    this.propagateTouched = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
@@ -57,7 +57,7 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
   }
 
   onBlur():void {
-    this.propageteTouched();
+    this.propagateTouched();
   }
 
 }

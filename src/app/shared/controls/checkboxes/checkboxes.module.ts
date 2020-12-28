@@ -8,6 +8,7 @@ import { CheckboxesComponent } from './checkboxes.component';
   declarations: [CheckboxesComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [CheckboxesComponent]
 })
 export class CheckboxesModule { }
