@@ -46,6 +46,9 @@ export class SharedComponent implements OnInit {
       }],
       checkboxes: [null, {
         updateOn: 'change', validators: [Validators.required]
+      }],
+      radios: [null, {
+        updateOn: 'change', validators: [Validators.required]
       }]
     })
   }
