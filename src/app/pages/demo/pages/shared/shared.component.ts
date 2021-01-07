@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { regex, regexErrors } from '@app/shared/utils';
+import { regex, regexErrors, markFormGroupTouched } from '@app/shared/utils';
 import { ControlItem } from '@app/models/frontend';
 
 @Component({
@@ -41,6 +41,9 @@ export class SharedComponent implements OnInit {
       password: [null, {
         updateOn: 'blur', validators:[Validators.required]
       }],
+      autoComplete: [null, {
+        updateOn: 'change', validators: [Validators.required]
+      }],
       select: [null, {
         updateOn: 'change', validators: [Validators.required]
       }],
@@ -60,15 +63,38 @@ export class SharedComponent implements OnInit {
   }
 
   onPatchValue(): void {
-    this.form.patchValue({ input: 'test' });
+    this.form.patchValue({
+      input: 'test@gm.com',
+      password: 'qwerty',
+      autoComplete: 1,
+      select: 2,
+      checkboxes: [3],
+      radios: 4,
+      date: new Date().getTime(),
+      dateRange: {
+        from: new Date(2020, 5, 10).getTime(),
+        to: new Date(2020, 6, 12).getTime()
+      }
+    });
   }
 
   onSubmit(): void {
-    console.log('Submitted')
+    console.log('Submitted');
+    if(!this.form.valid){
+      markFormGroupTouched(this.form);
+    }
   }
 
   onToggleInline(): void {
     this.isInline = !this.isInline;
+  }
+
+  onToggleDisable(): void {
+    if(this.form.enabled){
+      this.form.disable();
+    } else {
+      this.form.enable();
+    }
   }
 
 }
