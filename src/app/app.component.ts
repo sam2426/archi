@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
   constructor(private afs: AngularFirestore){}
 
   ngOnInit(){
-    this.afs.collection('test').snapshotChanges().subscribe(items=>{
-      console.log(items.map(x=>x.payload.doc.data()));
-    })
+    // this.afs.collection('test').snapshotChanges().subscribe(items=>{ //now no use, as test collection deleted
+    //   console.log(items.map(x=>x.payload.doc.data()));
+    // })
   }
 }
