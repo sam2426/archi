@@ -8,7 +8,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(()=>InputComponent),
+      useExisting: forwardRef(() => InputComponent),
       multi: true
     }
   ]
@@ -16,12 +16,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class InputComponent implements OnInit, ControlValueAccessor {
 
   @Input() placeholder: string;
-  @Output() changed = new EventEmitter<string>(); //the datatype will be same as that of value property
+  @Output() changed = new EventEmitter<string>(); // the datatype will be same as that of value property
 
   value: string;
   isDisabled: boolean;
-  private propagateChange: any=()=>{};
-  private propageteTouched: any=()=>{};
+  private propagateChange: any = () => {};
+  private propageteTouched: any = () => {};
 
   constructor() { }
 

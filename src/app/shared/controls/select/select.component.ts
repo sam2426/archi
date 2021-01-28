@@ -12,26 +12,26 @@ export {ControlItem, Value} from '@app/models/frontend';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(()=>SelectComponent),
+      useExisting: forwardRef(() => SelectComponent),
       multi: true
     }
   ]
 })
 export class SelectComponent implements OnInit, ControlValueAccessor {
   @Input() items: ControlItem[];
-  @Input() placeholder:string;
+  @Input() placeholder: string;
   @Output() changed = new EventEmitter<Value>();
 
   value: Value;
-  isDisabled:boolean;
+  isDisabled: boolean;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  private propagateChange: any=()=>{};
-  private propagateTouched: any=()=>{};
+  private propagateChange: any = () => {};
+  private propagateTouched: any = () => {};
 
   writeValue(value: Value): void {
     this.value = value;
@@ -50,13 +50,13 @@ export class SelectComponent implements OnInit, ControlValueAccessor {
   }
 
   onChanged(event: MatSelectChange): void{
-    const value = event.value?event.value:null;
+    const value = event.value ? event.value : null;
     this.value = value;
     this.propagateChange(value);
     this.changed.emit(value);
   }
 
-  onBlur():void {
+  onBlur(): void {
     this.propagateTouched();
   }
 

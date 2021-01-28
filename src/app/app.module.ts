@@ -14,12 +14,12 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { HeaderComponent } from './components/header/header.component';
 
-//Date
+// Date
 import { MatNativeDateModule, MatDateFormats, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 
-const APP_DATE_FORMATS: MatDateFormats={
+const APP_DATE_FORMATS: MatDateFormats = {
   parse: {
-    dateInput: {day:'numeric', month:'numeric', year: 'numeric'}
+    dateInput: {day: 'numeric', month: 'numeric', year: 'numeric'}
   },
   display: {
     dateInput: {day: 'numeric', month: 'short', year: 'numeric'},
@@ -27,16 +27,16 @@ const APP_DATE_FORMATS: MatDateFormats={
     dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
     monthYearA11yLabel: {year: 'numeric', month: 'long'}
   }
-}
+};
 
-//Services
+// Services
 import { NotificationModule } from './services';
 
-//Store
+// Store
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-const StoreDevTools = !environment.production? StoreDevtoolsModule.instrument({maxAge:50}): [];
+const StoreDevTools = !environment.production ? StoreDevtoolsModule.instrument({maxAge: 50}) : [];
 import { reducers, effects } from './store';
 
 @NgModule({
@@ -66,7 +66,7 @@ import { reducers, effects } from './store';
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
-    {provide: MAT_DATE_FORMATS, useValue:APP_DATE_FORMATS}
+    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}
   ],
   bootstrap: [AppComponent]
 })

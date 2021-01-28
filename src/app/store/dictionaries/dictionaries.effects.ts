@@ -12,7 +12,7 @@ import * as fromActions from './dictionaries.actions';
 
 type Action = fromActions.All;
 
-const documentToItem = (x:DocumentChangeAction<any>): Item=>{
+const documentToItem = (x: DocumentChangeAction<any>): Item => {
   const data = x.payload.doc.data();
   return {
     id: x.payload.doc.id,
@@ -20,7 +20,7 @@ const documentToItem = (x:DocumentChangeAction<any>): Item=>{
   };
 };
 
-const itemToControlItem = (x:Item): ControlItem => ({
+const itemToControlItem = (x: Item): ControlItem => ({
   value: x.id,
   label: x.name,
   icon: x.icon
@@ -28,8 +28,8 @@ const itemToControlItem = (x:Item): ControlItem => ({
 
 const addDictionary = (items: Item[]): Dictionary => ({
   items,
-  controlItems: [...items].map(x=>itemToControlItem(x))
-})
+  controlItems: [...items].map(x => itemToControlItem(x))
+});
 
 @Injectable()
 export class DictionariesEffects{
@@ -38,26 +38,26 @@ export class DictionariesEffects{
   @Effect()
   read: Observable<Action> = this.actions.pipe(
     ofType(fromActions.Types.READ),
-    switchMap(()=>{
+    switchMap(() => {
       return zip(
         this.afs.collection('roles').snapshotChanges().pipe(
           take(1),
-          map(items=> items.map(x=>documentToItem(x)))
+          map(items => items.map(x => documentToItem(x)))
         ),
         this.afs.collection('specializations').snapshotChanges().pipe(
           take(1),
-          map(items=> items.map(x=>documentToItem(x)))
+          map(items => items.map(x => documentToItem(x)))
         ),
         this.afs.collection('qualifications').snapshotChanges().pipe(
           take(1),
-          map(items=> items.map(x=>documentToItem(x)))
+          map(items => items.map(x => documentToItem(x)))
         ),
         this.afs.collection('skills').snapshotChanges().pipe(
           take(1),
-          map(items=> items.map(x=>documentToItem(x)))
+          map(items => items.map(x => documentToItem(x)))
         ),
       ).pipe(
-        map(([roles,specializations, qualifications, skills])=>{
+        map(([roles, specializations, qualifications, skills]) => {
           const dictionaries: Dictionaries = {
             roles: addDictionary(roles),
             specializations: addDictionary(specializations),
@@ -66,8 +66,8 @@ export class DictionariesEffects{
           };
           return new fromActions.ReadSuccess(dictionaries);
         }),
-        catchError(err=>of(new fromActions.ReadError(err.message)))
-      )
+        catchError(err => of(new fromActions.ReadError(err.message)))
+      );
     })
-  )
+  );
 }

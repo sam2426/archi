@@ -6,15 +6,15 @@ import { DemoComponent } from './demo.component';
 const routes: Routes = [
   {
     path: '',
-    component:DemoComponent,
+    component: DemoComponent,
     children: [
       {
         path: 'styles',
-        loadChildren:()=>import('./pages/styles/styles.module').then(m=>m.StylesModule)
+        loadChildren: () => import('./pages/styles/styles.module').then(m => m.StylesModule)
       },
       {
         path: 'shared',
-        loadChildren: ()=>import('./pages/shared/shared.module').then(m=>m.SharedModule)
+        loadChildren: () => import('./pages/shared/shared.module').then(m => m.SharedModule)
       }
     ]
   }

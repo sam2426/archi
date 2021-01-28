@@ -10,18 +10,18 @@ export {ControlItem, Value} from '@app/models/frontend';
   styleUrls: ['./radios.component.scss'],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(()=>RadiosComponent),
+    useExisting: forwardRef(() => RadiosComponent),
     multi: true
   }]
 })
 export class RadiosComponent implements OnInit, ControlValueAccessor {
 
   @Input() items: ControlItem[];
-  @Output() changed= new EventEmitter<Value>();
+  @Output() changed = new EventEmitter<Value>();
 
   value: Value;
   isDisabled: boolean;
-  private propagateChange: any=()=>{};
+  private propagateChange: any = () => {};
 
   constructor() { }
 
@@ -43,14 +43,14 @@ export class RadiosComponent implements OnInit, ControlValueAccessor {
     this.isDisabled = isDisabled;
   }
 
-  onChanged(value:Value): void {
+  onChanged(value: Value): void {
     this.value = value;
     this.propagateChange(value);
     this.changed.emit(value);
   }
 
-  isChecked(value: Value):boolean{
-    return this.value===value;
+  isChecked(value: Value): boolean{
+    return this.value === value;
   }
 
 }

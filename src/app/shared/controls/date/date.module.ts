@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DateComponent } from './date.component';
-import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -10,6 +10,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
     CommonModule,
     MatDatepickerModule
   ],
-  exports:[DateComponent]
+  exports: [DateComponent]
 })
 export class DateModule { }

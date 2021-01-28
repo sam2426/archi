@@ -17,24 +17,24 @@ export class SharedComponent implements OnInit {
 
   items: ControlItem[];
 
-  showSpinner: boolean = false;
+  showSpinner = false;
 
   constructor(private fb: FormBuilder, private notification: NotificationService) {
-    this.isInline=true;
+    this.isInline = true;
 
-    this.items=[
-      {label:'first', value: 1},
-      {label:'second', value: 2},
-      {label:'third', value: 3},
-      {label:'fourth', value: 4},
-      {label:'fifth', value: 5},
+    this.items = [
+      {label: 'first', value: 1},
+      {label: 'second', value: 2},
+      {label: 'third', value: 3},
+      {label: 'fourth', value: 4},
+      {label: 'fifth', value: 5},
     ];
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       input: [null, {
-        updateOn: 'blur', //this setting makes the field like errors to update after the cursor is outside control.
+        updateOn: 'blur', // this setting makes the field like errors to update after the cursor is outside control.
         validators: [
           Validators.required,
           Validators.minLength(3),
@@ -42,7 +42,7 @@ export class SharedComponent implements OnInit {
         ]
       }],
       password: [null, {
-        updateOn: 'blur', validators:[Validators.required]
+        updateOn: 'blur', validators: [Validators.required]
       }],
       autoComplete: [null, {
         updateOn: 'change', validators: [Validators.required]
@@ -62,7 +62,7 @@ export class SharedComponent implements OnInit {
       dateRange: [null, {
         updateOn: 'change', validators: [Validators.required]
       }]
-    })
+    });
   }
 
   onPatchValue(): void {
@@ -83,7 +83,7 @@ export class SharedComponent implements OnInit {
 
   onSubmit(): void {
     console.log('Submitted');
-    if(!this.form.valid){
+    if (!this.form.valid){
       markFormGroupTouched(this.form);
     }
   }
@@ -93,7 +93,7 @@ export class SharedComponent implements OnInit {
   }
 
   onToggleDisable(): void {
-    if(this.form.enabled){
+    if (this.form.enabled){
       this.form.disable();
     } else {
       this.form.enable();
@@ -104,12 +104,12 @@ export class SharedComponent implements OnInit {
     this.showSpinner = !this.showSpinner;
   }
 
-  onSuccess():void {
+  onSuccess(): void {
     this.notification.success('Everything is fine!');
   }
 
-  onError():void {
-    this.notification.error('Oops! Something is wrong.')
+  onError(): void {
+    this.notification.error('Oops! Something is wrong.');
   }
 
 }

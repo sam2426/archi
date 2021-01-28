@@ -15,7 +15,7 @@ export class FormFieldComponent implements OnInit {
   @Input() patternError: string;
 
   constructor() {
-    this.isInline=true;
+    this.isInline = true;
   }
 
   ngOnInit(): void {

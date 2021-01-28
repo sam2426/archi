@@ -10,20 +10,20 @@ export {ControlItem, Value} from '@app/models/frontend';
   styleUrls: ['./checkboxes.component.scss'],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(()=>CheckboxesComponent),
+    useExisting: forwardRef(() => CheckboxesComponent),
     multi: true
   }]
 })
 export class CheckboxesComponent implements OnInit, ControlValueAccessor {
 
-  @Input() items: ControlItem[];
-  @Output() changed= new EventEmitter<Value[]>();
-
-  private propagateChange: any=()=>{};
-  value: Value[];
-  isDisabled:boolean;
-
   constructor() { }
+
+  @Input() items: ControlItem[];
+  @Output() changed = new EventEmitter<Value[]>();
+  value: Value[];
+  isDisabled: boolean;
+
+  private propagateChange: any = () => {};
 
   ngOnInit(): void {
   }
@@ -45,26 +45,26 @@ export class CheckboxesComponent implements OnInit, ControlValueAccessor {
 
   onChanged(value: Value, checked: boolean): void{
     const selected = this.getSelected(value, checked);
-    this.value=selected;
+    this.value = selected;
     this.propagateChange(selected);
     this.changed.emit(selected);
   }
 
-  private getSelected(value:Value, checked: boolean):Value[]{
-    const selected: Value[] = this.value?[...this.value]: [];
+  private getSelected(value: Value, checked: boolean): Value[]{
+    const selected: Value[] = this.value ? [...this.value] : [];
 
-    if(checked){
-      if(!selected.includes(value)){
+    if (checked){
+      if (!selected.includes(value)){
         selected.push(value);
       }
     } else {
       const index = selected.indexOf(value);
-      selected.splice(index,1);
+      selected.splice(index, 1);
     }
-    return selected.length?selected:null;
+    return selected.length ? selected : null;
   }
 
-  isChecked(value:Value):boolean{
+  isChecked(value: Value): boolean{
     return this.value && this.value.includes(value);
   }
 

@@ -2,13 +2,13 @@ import { Component, OnInit, forwardRef, Input, Output, EventEmitter } from '@ang
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormBuilder, FormGroup} from '@angular/forms';
 
 export interface Value {
-  from: number,
-  to: number
+  from: number;
+  to: number;
 }
 
 export interface Placeholder {
-  from: string,
-  to: string
+  from: string;
+  to: string;
 }
 
 @Component({
@@ -18,7 +18,7 @@ export interface Placeholder {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(()=>DateRangeComponent),
+      useExisting: forwardRef(() => DateRangeComponent),
       multi: true
     }
   ]
@@ -32,10 +32,10 @@ export class DateRangeComponent implements OnInit, ControlValueAccessor {
 
   constructor(private fb: FormBuilder) { }
 
-  private propagateChange: any = ()=>{};
+  private propagateChange: any = () => {};
   private propagateTouched: any = () => {};
 
-  get min():Date {
+  get min(): Date {
     const from = this.form.controls.from.value;
     return from ? new Date(from) : null;
   }
@@ -49,13 +49,13 @@ export class DateRangeComponent implements OnInit, ControlValueAccessor {
     this.form.patchValue(value || {});
   }
   registerOnChange(fn: any): void {
-    this.propagateChange= fn;
+    this.propagateChange = fn;
   }
   registerOnTouched(fn: any): void {
     this.propagateTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    if(isDisabled){
+    if (isDisabled){
       this.form.disable();
     } else {
       this.form.enable();
@@ -66,7 +66,7 @@ export class DateRangeComponent implements OnInit, ControlValueAccessor {
     this.form = this.fb.group({
       from: [null],
       to: [null]
-    })
+    });
   }
 
   onChanged(): void {

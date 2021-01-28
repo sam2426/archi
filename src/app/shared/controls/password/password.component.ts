@@ -10,7 +10,7 @@ type passwordType = 'password' | 'text';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(()=>PasswordComponent),
+      useExisting: forwardRef(() => PasswordComponent),
       multi: true
     }
   ]
@@ -18,16 +18,16 @@ type passwordType = 'password' | 'text';
 export class PasswordComponent implements OnInit, ControlValueAccessor {
 
   @Input() placeholder: string;
-  @Output() changed = new EventEmitter<string>(); //the datatype will be same as that of value property
+  @Output() changed = new EventEmitter<string>(); // the datatype will be same as that of value property
 
   value: string;
   isDisabled: boolean;
-  passwordType:passwordType;
-  private propagateChange: any=()=>{};
-  private propageteTouched: any=()=>{};
+  passwordType: passwordType;
+  private propagateChange: any = () => {};
+  private propageteTouched: any = () => {};
 
   constructor() {
-    this.passwordType='password';
+    this.passwordType = 'password';
    }
 
   ngOnInit(): void {
@@ -60,7 +60,7 @@ export class PasswordComponent implements OnInit, ControlValueAccessor {
   }
 
   togglePassword(): void{
-    this.passwordType=this.passwordType==='password'? 'text':'password';
+    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
   }
 
 }
