@@ -9,6 +9,7 @@ import { map, switchMap, take, catchError } from 'rxjs/operators';
 import { Dictionaries, Dictionary, Item, ControlItem } from './dictionaries.models';
 
 import * as fromActions from './dictionaries.actions';
+import * as jsonCountries from '../../../assets/countries.json';
 
 type Action = fromActions.All;
 
@@ -56,13 +57,23 @@ export class DictionariesEffects{
           take(1),
           map(items => items.map(x => documentToItem(x)))
         ),
+        of((jsonCountries as any).default.map(country => ({
+          id: country.code.toUpperCase(),
+          name: country.name,
+          icon: {
+            src: null,
+            cssClass: 'fflag fflag-' + country.code.toUpperCase()
+          }
+        })
+        ))
       ).pipe(
-        map(([roles, specializations, qualifications, skills]) => {
+        map(([roles, specializations, qualifications, skills, countries]) => {
           const dictionaries: Dictionaries = {
             roles: addDictionary(roles),
             specializations: addDictionary(specializations),
             qualifications: addDictionary(qualifications),
-            skills: addDictionary(skills)
+            skills: addDictionary(skills),
+            countries: addDictionary(countries)
           };
           return new fromActions.ReadSuccess(dictionaries);
         }),
