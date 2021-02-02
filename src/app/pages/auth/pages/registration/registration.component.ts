@@ -27,14 +27,14 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       email: [null, {
-        updateOn: 'blur', Validators: [
+        updateOn: 'blur', validators: [
           Validators.required,
           Validators.maxLength(128),
           Validators.pattern(regex.email)
         ]
       }],
       password: [null, {
-        updateOn: 'blur', Validators: [
+        updateOn: 'blur', validators: [
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(30),
@@ -42,7 +42,7 @@ export class RegistrationComponent implements OnInit {
         ]
       }],
       passwordRepeat: [null, {
-        updateOn: 'blur', Validators: [
+        updateOn: 'blur', validators: [
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(30),

@@ -3,7 +3,7 @@
     <h1>Registration</h1>
   </div>
 
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()" novalidate autocomplete="off">
+  <form [formGroup]="form" (submit)="onSubmit()" (keyup.enter)="onSubmit()" novalidate autocomplete="off">
     <div class="app-page__content">
       <app-form-field label="Email" [required]="true" [control]="form.controls.email" [isInline]="false" [patternError]="regexErrors.email">
         <app-input formControlName="email"></app-input>
