@@ -30,14 +30,34 @@ export class UserEffects {
   ) {}
 
   @Effect()
+  init: Observable<Action> = this.actions.pipe(
+    ofType(fromActions.Types.INIT),
+    switchMap(() => this.afAuth.authState.pipe(take(1))),
+    switchMap(authState => {
+      if (authState) {
+        return this.afs.doc<User>(`users/${authState.uid}`).valueChanges().pipe(
+          take(1),
+          map(user => new fromActions.InitAuthorized(authState.uid, user || null)),
+          catchError(err => of(new fromActions.InitError(err.message)))
+        );
+      } else {
+        return of(new fromActions.InitUnauthorized());
+      }
+    })
+  );
+
+  @Effect()
   signInEmail: Observable<Action> = this.actions.pipe(
     ofType(fromActions.Types.SIGN_IN_EMAIL),
     map((action: fromActions.SignInEmail) => action.credentials),
     switchMap((credentials) =>
-      from(this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.pasword)).pipe(
+      from(this.afAuth.auth.signInWithEmailAndPassword(credentials.email, credentials.password)).pipe(
         switchMap(signInState =>
           this.afs.doc<User>(`users/${signInState.user.uid}`).valueChanges().pipe(
             take(1),
+            tap(() => {
+              this.router.navigate(['/']);
+            }),
             map(user => new fromActions.SignInEmailSuccess(signInState.user.uid, user || null))
           )
         ),
@@ -55,10 +75,11 @@ export class UserEffects {
     map((action: fromActions.SignUpEmail) => action.credentials),
     switchMap(credentials =>
       // createUserWithEmailAndPassword returns a promise, so to convert it to observable.. use 'from' operator.
-      from(this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.pasword)).pipe(
+      from(this.afAuth.auth.createUserWithEmailAndPassword(credentials.email, credentials.password)).pipe(
         // the tap operator does not modify the observable stream in any manner, but it works only if there is no error.
         tap(() => {
           this.afAuth.auth.currentUser.sendEmailVerification(environment.firebase.actionCodeSettings);
+          this.router.navigate(['/auth/email-confirm']);
         }),
         map((signUpState) => new fromActions.SignUpEmailSuccess(signUpState.user.uid)),
         catchError(err => {
